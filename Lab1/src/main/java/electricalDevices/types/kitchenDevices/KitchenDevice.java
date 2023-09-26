@@ -2,6 +2,7 @@ package electricalDevices.types.kitchenDevices;
 import electricalDevices.ElecDevice;
 import electricalDevices.additionalClasses.IWorkingMode;
 import electricalDevices.additionalClasses.WorkingMode;
+import myLogger.MyLogger;
 
 public class KitchenDevice extends ElecDevice implements IWorkingMode
 {
@@ -9,19 +10,19 @@ public class KitchenDevice extends ElecDevice implements IWorkingMode
     public KitchenDevice(float power, boolean isEnabled, WorkingMode workingMode)
     {
         super(power, isEnabled);
-        SetWorkingMode(workingMode);
+        this.workingMode = workingMode;
     }
     @Override
-    public void PrintInfo()
+    public void printInfo()
     {
-        System.out.println(String.format("KitchenDevice with %1$f power and %2$s workmode!", GetPower(), GetWorkingMode().toString()));
+        MyLogger.printInfoMessage(String.format("KitchenDevice with %1$f power and %2$s workmode!", getPower(), getWorkingMode().toString()));
     }
     @Override
-    public WorkingMode GetWorkingMode()
+    public WorkingMode getWorkingMode()
     {
         return workingMode;
     }
-    public void SetWorkingMode(WorkingMode workingMode)
+    public void setWorkingMode(WorkingMode workingMode)
     {
         this.workingMode = workingMode;
     }

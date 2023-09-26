@@ -7,7 +7,6 @@ import java.io.IOException;
 
 public class IElecDeviceTypeAdapter extends TypeAdapter<IElecDevice>
 {
-
     @Override
     public void write(JsonWriter out, IElecDevice device) throws IOException
     {
@@ -22,7 +21,8 @@ public class IElecDeviceTypeAdapter extends TypeAdapter<IElecDevice>
     @Override
     public IElecDevice read(JsonReader in) throws IOException
     {
-        JsonObject jsonObject = JsonParser.parseReader(in).getAsJsonObject();
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = jsonParser.parse(in).getAsJsonObject();
         String className = jsonObject.get("type").getAsString();
         try
         {

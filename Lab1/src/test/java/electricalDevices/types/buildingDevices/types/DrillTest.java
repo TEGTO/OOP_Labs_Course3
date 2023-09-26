@@ -3,7 +3,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,35 +22,35 @@ class DrillTest {
 
     @Test
     public void testPrintInfoMultipleSpins() {
-        drill.PrintInfo();
+        drill.printInfo();
         String expected = "Drill with 1500,00 power and 500 spins!";
         assertEquals(expected, getOutput());
     }
 
     @Test
     public void testPrintInfoSingleSpin() {
-        drill.SetSpins(1);
-        drill.PrintInfo();
+        drill.setSpins(1);
+        drill.printInfo();
         String expected = "Drill with 1500,00 power and 1 spin!";
         assertEquals(expected, getOutput());
     }
 
     @Test
     public void testSetSpins() {
-        drill.SetSpins(1000);
+        drill.setSpins(1000);
         assertEquals(1000, drill.spins);
     }
 
     @Test
     public void testEnableDevice() {
-        drill.EnableDevice();
+        drill.enableDevice();
         String expectedOutput = "Drill: Spinning on 500 spins!";
         assertEquals(expectedOutput, getOutput());
     }
 
     @Test
     public void testDisableDevice() {
-        drill.DisableDevice();
+        drill.disableDevice();
         String expectedOutput = "Drill: Stop spinning!";
         assertEquals(expectedOutput, getOutput());
     }

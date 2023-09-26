@@ -6,15 +6,15 @@ public class Timer
     {
         this.time = time;
     }
-    public void AddTime(float time)
+    public void addTime(float time)
     {
         this.time += time;
     }
-    public void SetTime(float time)
+    public void setTime(float time)
     {
         this.time = time;
     }
-    public float GetTime()
+    public float getTime()
     {
         return time;
     }

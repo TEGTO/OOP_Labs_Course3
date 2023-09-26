@@ -2,6 +2,7 @@ package electricalDevices.types.kitchenDevices.types;
 
 import electricalDevices.types.kitchenDevices.KitchenDevice;
 import electricalDevices.additionalClasses.WorkingMode;
+import myLogger.MyLogger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,28 +15,28 @@ public class Fridge extends KitchenDevice
         super(power, isEnabled, workingMode);
     }
     @Override
-    public void PrintInfo()
+    public void printInfo()
     {
-        System.out.println(String.format("Fridge with %1$.2f power, %2$s workmode and %3$d food inside!", GetPower(), GetWorkingMode().toString(),foodInside.size()));
+        MyLogger.printInfoMessage(String.format("Fridge with %1$.2f power, %2$s workmode and %3$d food inside!", getPower(), getWorkingMode().toString(),foodInside.size()));
     }
-    public void AddFood(String foodName)
+    public void addFood(String foodName)
     {
         foodInside.add((foodName));
     }
-    public void RemoveFood(String foodName)
+    public void removeFood(String foodName)
     {
         foodInside.remove((foodName));
     }
     @Override
-    final public void EnableDevice()
+    final public void enableDevice()
     {
-        super.EnableDevice();
-        System.out.println(String.format("Fridge: Cooling food! On %1$s mode!",GetWorkingMode().toString()));
+        super.enableDevice();
+        MyLogger.printInfoMessage(String.format("Fridge: Cooling food! On %1$s mode!", getWorkingMode().toString()));
     }
     @Override
-    final public void DisableDevice()
+    final public void disableDevice()
     {
-        super.DisableDevice();
-        System.out.println("Fridge: Stops cooling food!");
+        super.disableDevice();
+        MyLogger.printInfoMessage("Fridge: Stops cooling food!");
     }
 }

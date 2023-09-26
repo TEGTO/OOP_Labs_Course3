@@ -15,23 +15,23 @@ class TimerTest
 
     @Test
     public void testConstructor() {
-        assertEquals(10.0f, timer.GetTime());
+        assertEquals(10.0f, timer.getTime());
     }
 
     @Test
     public void testAddTime() {
-        timer.AddTime(5.0f);
-        assertEquals(15.0f, timer.GetTime());
+        timer.addTime(5.0f);
+        assertEquals(15.0f, timer.getTime());
     }
 
     @Test
     public void testSetTime() {
-        timer.SetTime(20.0f);
-        assertEquals(20.0f, timer.GetTime());
+        timer.setTime(20.0f);
+        assertEquals(20.0f, timer.getTime());
     }
 
     @Test
     public void testGetTime() {
-        assertEquals(10.0f, timer.GetTime());
+        assertEquals(10.0f, timer.getTime());
     }
 }

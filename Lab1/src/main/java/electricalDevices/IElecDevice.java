@@ -1,9 +1,9 @@
 package electricalDevices;
 public interface IElecDevice
 {
-    public void EnableDevice();
-    public  void DisableDevice();
-    public  float GetPower();
-    public  void PrintInfo();
-    public  boolean IsEnabled();
+    public void enableDevice();
+    public  void disableDevice();
+    public  float getPower();
+    public  void printInfo();
+    public  boolean isEnabled();
 }

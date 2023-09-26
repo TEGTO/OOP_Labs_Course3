@@ -2,6 +2,7 @@ package electricalDevices.types.householdDevices.types;
 import electricalDevices.additionalClasses.Timer;
 import electricalDevices.types.householdDevices.HouseholdDevice;
 import electricalDevices.additionalClasses.WorkingMode;
+import myLogger.MyLogger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,38 +14,38 @@ public class WashingMachine extends HouseholdDevice
         Wash, Spin, WashAndSpin
     }
 
-    public Timer WashingTimerInSeconds;
+    public Timer washingTimerInSeconds;
     List<String> clothesNames = new ArrayList<String>();
     WashingMode washingMode;
     public WashingMachine(float power, boolean isEnabled, WorkingMode workingMode, WashingMode washingMode, Timer timer)
     {
         super(power, isEnabled, workingMode);
-        SetWashingMode(washingMode);
-        this.WashingTimerInSeconds = timer;
+        this.washingMode = washingMode;
+        this.washingTimerInSeconds = timer;
     }
 
     @Override
-    public void PrintInfo()
+    public void printInfo()
     {
-        System.out.println(String.format("WashingMachine with %1$.2f power, %2$s workmode and %3$s washing mode!", GetPower(), GetWorkingMode().toString(), washingMode.toString()));
+        MyLogger.printInfoMessage(String.format("WashingMachine with %1$.2f power, %2$s workmode and %3$s washing mode!", getPower(), getWorkingMode().toString(), washingMode.toString()));
     }
-    public void SetWashingMode(WashingMode washingMode)
+    public void setWashingMode(WashingMode washingMode)
     {
         this.washingMode = washingMode;
     }
     @Override
-    final public void EnableDevice()
+    final public void enableDevice()
     {
-        super.EnableDevice();
+        super.enableDevice();
         new Thread(() ->
         {
             float currentTimeOfWorking = 0;
-            while (currentTimeOfWorking <= WashingTimerInSeconds.GetTime() && isEnabled)
+            while (currentTimeOfWorking <= washingTimerInSeconds.getTime() && isEnabled)
             {
-                String timeToTheEnd = WashingTimerInSeconds.GetTime() - currentTimeOfWorking == 1 ? (WashingTimerInSeconds.GetTime() - currentTimeOfWorking) + " second"
-                        : (WashingTimerInSeconds.GetTime() - currentTimeOfWorking) + " seconds";
+                String timeToTheEnd = washingTimerInSeconds.getTime() - currentTimeOfWorking == 1 ? (washingTimerInSeconds.getTime() - currentTimeOfWorking) + " second"
+                        : (washingTimerInSeconds.getTime() - currentTimeOfWorking) + " seconds";
                 String text = clothesNames.size() > 1 ? "Washing one cloth!" : String.format("Washing %1$s clothes!", clothesNames.size());
-                System.out.println(String.format("WashingMachine: %1$s WashingMode is %2$s on %3$s! ", text, washingMode, GetWorkingMode().toString()) + timeToTheEnd + " to the end!");
+                MyLogger.printInfoMessage(String.format("WashingMachine: %1$s WashingMode is %2$s on %3$s! ", text, washingMode, getWorkingMode().toString()) + timeToTheEnd + " to the end!");
                 currentTimeOfWorking++;
                 try
                 {
@@ -56,7 +57,7 @@ public class WashingMachine extends HouseholdDevice
                 }
             }
             if (isEnabled)
-                System.out.println("WashingMachine: Washing is over!");
+                MyLogger.printInfoMessage("WashingMachine: Washing is over!");
             isEnabled = false;
         }).start();
     }

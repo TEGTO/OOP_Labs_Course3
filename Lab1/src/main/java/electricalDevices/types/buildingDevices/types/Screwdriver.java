@@ -1,19 +1,25 @@
 package electricalDevices.types.buildingDevices.types;
+import myLogger.MyLogger;
+
 public class Screwdriver extends Drill
 {
     int batteryPercent; // how much energy left in percents
     public Screwdriver(float power, boolean isEnabled, int spins, int batteryPercent)
     {
         super(power, isEnabled, spins);
-        SetBatteryPercent(batteryPercent);
+        if (batteryPercent < 0)
+            batteryPercent = 0;
+        else if (batteryPercent > 100)
+            batteryPercent = 100;
+        this.batteryPercent = batteryPercent;
     }
     @Override
-    public void PrintInfo()
+    public void printInfo()
     {
         String s = spins > 1 ? "spins!" : "spin!";
-        System.out.println(String.format("Screwdriver with %1$.2f power, %2$d%% battery left and %3$d ", GetPower(), batteryPercent, spins) + s);
+        MyLogger.printInfoMessage(String.format("Screwdriver with %1$.2f power, %2$d%% battery left and %3$d ", getPower(), batteryPercent, spins) + s);
     }
-    public void SetBatteryPercent(int batteryPercent)
+    public void setBatteryPercent(int batteryPercent)
     {
         if (batteryPercent < 0)
             batteryPercent = 0;
@@ -21,20 +27,20 @@ public class Screwdriver extends Drill
             batteryPercent = 100;
         this.batteryPercent = batteryPercent;
     }
-    public int GetBatteryPercent()
+    public int getBatteryPercent()
     {
         return batteryPercent;
     }
     @Override
-    public void EnableDevice()
+    public void enableDevice()
     {
         //super.EnableDevice();
         isEnabled = true;
         new Thread(() ->
         {
-            while (GetBatteryPercent() > 0 && isEnabled)
+            while (getBatteryPercent() > 0 && isEnabled)
             {
-                System.out.println(String.format("Screwdriver: Spinning on %1$d spins! Battery left: %2$d", spins, GetBatteryPercent()) + "%");
+                MyLogger.printInfoMessage(String.format("Screwdriver: Spinning on %1$d spins! Battery left: %2$d", spins, getBatteryPercent()) + "%");
                 try
                 {
                     Thread.sleep(200);
@@ -43,16 +49,16 @@ public class Screwdriver extends Drill
                 {
                     throw new RuntimeException(e);
                 }
-                SetBatteryPercent(GetBatteryPercent() - 1);
+                setBatteryPercent(getBatteryPercent() - 1);
             }
             if (isEnabled)
-                System.out.println(String.format("Screwdriver: Can't spin! Battery is over: %1$d", GetBatteryPercent()) + "%");
+                MyLogger.printInfoMessage(String.format("Screwdriver: Can't spin! Battery is over: %1$d", getBatteryPercent()) + "%");
         }).start();
     }
     @Override
-    public void DisableDevice()
+    public void disableDevice()
     {
-        super.DisableDevice();
-        System.out.println(String.format("Screwdriver: Stop spinning! Battery left: %1$d", GetBatteryPercent()) + "%");
+        super.disableDevice();
+        MyLogger.printInfoMessage(String.format("Screwdriver: Stop spinning! Battery left: %1$d", getBatteryPercent()) + "%");
     }
 }

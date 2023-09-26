@@ -23,22 +23,22 @@ class MicrowaveTest
 
     @Test
     public void testPrintInfo() {
-        microwave.PrintInfo();
+        microwave.printInfo();
         String expected = "Microwave with 1000,00 power, Medium workmode and Chicken food inside!";
         assertEquals(expected, outContent.toString().replace("\n", "").replace("\r", ""));
     }
 
     @Test
     public void testSetFood() {
-        microwave.SetFood("Pasta");
-        microwave.PrintInfo();
+        microwave.setFood("Pasta");
+        microwave.printInfo();
         String expected = "Microwave with 1000,00 power, Medium workmode and Pasta food inside!";
         assertEquals(expected, outContent.toString().replace("\n", "").replace("\r", ""));
     }
 
     @Test
     public void testEnableDevice() throws InterruptedException {
-        microwave.EnableDevice();
+        microwave.enableDevice();
         Thread.sleep(12000);  // Let it run for a bit more than the timer's time
         String expectedEndMessage = "Microwave: Beep-beep Chicken is heated!";
         assertTrue(outContent.toString().replace("\n", "").replace("\r", "").endsWith(expectedEndMessage));
@@ -46,7 +46,7 @@ class MicrowaveTest
 
     @Test
     public void testDisableDevice() {
-        microwave.DisableDevice();
+        microwave.disableDevice();
         String expected = "Microwave: Beep!"; // Assuming "Device is now disabled!" is from the super.DisableDevice() method
         assertEquals(expected,  outContent.toString().replace("\n", "").replace("\r", ""));
     }

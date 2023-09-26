@@ -1,5 +1,6 @@
 package electricalDevices.types.buildingDevices.types;
 import electricalDevices.types.buildingDevices.BuildingDevice;
+import myLogger.MyLogger;
 
 public class Drill extends BuildingDevice
 {
@@ -7,28 +8,28 @@ public class Drill extends BuildingDevice
     public Drill(float power, boolean isEnabled, int spins)
     {
         super(power, isEnabled);
-        SetSpins(spins);
+        this.spins = spins;
     }
     @Override
-    public void PrintInfo()
+    public void printInfo()
     {
         String s = spins > 1 ? "spins!" : "spin!";
-        System.out.println(String.format("Drill with %1$.2f power and %2$d ", GetPower(), spins) + s);
+        MyLogger.printInfoMessage(String.format("Drill with %1$.2f power and %2$d ", getPower(), spins) + s);
     }
-    public void SetSpins(int spins)
+    public void setSpins(int spins)
     {
         this.spins = spins;
     }
     @Override
-    public void EnableDevice()
+    public void enableDevice()
     {
-        super.EnableDevice();
-        System.out.println(String.format("Drill: Spinning on %1$d spins!", spins));
+        super.enableDevice();
+        MyLogger.printInfoMessage(String.format("Drill: Spinning on %1$d spins!", spins));
     }
     @Override
-    public void DisableDevice()
+    public void disableDevice()
     {
-        super.DisableDevice();
-        System.out.println("Drill: Stop spinning!");
+        super.disableDevice();
+        MyLogger.printInfoMessage("Drill: Stop spinning!");
     }
 }

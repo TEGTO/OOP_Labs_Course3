@@ -2,38 +2,39 @@ package electricalDevices.types.kitchenDevices.types;
 import electricalDevices.additionalClasses.Timer;
 import electricalDevices.types.kitchenDevices.KitchenDevice;
 import electricalDevices.additionalClasses.WorkingMode;
+import myLogger.MyLogger;
 
 public class Microwave extends KitchenDevice
 {
-    Timer MicrowavingTimerInSeconds;
+    Timer microwavingTimerInSeconds;
     String foodName;
     public Microwave(float power, boolean isEnabled, WorkingMode workingMode, Timer timer, String foodName)
     {
         super(power, isEnabled, workingMode);
-        this.MicrowavingTimerInSeconds = timer;
-        SetFood(foodName);
+        this.microwavingTimerInSeconds = timer;
+        this.foodName = foodName;
     }
     @Override
-    public void PrintInfo()
+    public void printInfo()
     {
-        System.out.println(String.format("Microwave with %1$.2f power, %2$s workmode and %3$s food inside!", GetPower(), GetWorkingMode().toString(),foodName));
+        MyLogger.printInfoMessage(String.format("Microwave with %1$.2f power, %2$s workmode and %3$s food inside!", getPower(), getWorkingMode().toString(),foodName));
     }
-    public void SetFood(String foodName)
+    public void setFood(String foodName)
     {
         this.foodName = foodName;
     }
     @Override
-    final public void EnableDevice()
+    final public void enableDevice()
     {
-        super.EnableDevice();
+        super.enableDevice();
         new Thread(() ->
         {
             float currentTimeOfWorking = 0;
-            while (currentTimeOfWorking <= MicrowavingTimerInSeconds.GetTime() && isEnabled)
+            while (currentTimeOfWorking <= microwavingTimerInSeconds.getTime() && isEnabled)
             {
-                String timeToTheEnd = MicrowavingTimerInSeconds.GetTime() - currentTimeOfWorking == 1 ? (MicrowavingTimerInSeconds.GetTime() - currentTimeOfWorking) + " second"
-                        : (MicrowavingTimerInSeconds.GetTime() - currentTimeOfWorking) + " seconds";
-                System.out.println(String.format("Microwave: Heating up the %1$s! On %2$s mode! ", foodName, GetWorkingMode().toString()) + timeToTheEnd + " to the end!");
+                String timeToTheEnd = microwavingTimerInSeconds.getTime() - currentTimeOfWorking == 1 ? (microwavingTimerInSeconds.getTime() - currentTimeOfWorking) + " second"
+                        : (microwavingTimerInSeconds.getTime() - currentTimeOfWorking) + " seconds";
+                MyLogger.printInfoMessage(String.format("Microwave: Heating up the %1$s! On %2$s mode! ", foodName, getWorkingMode().toString()) + timeToTheEnd + " to the end!");
                 currentTimeOfWorking++;
                 try
                 {
@@ -45,14 +46,14 @@ public class Microwave extends KitchenDevice
                 }
             }
             if (isEnabled)
-                System.out.println(String.format("Microwave: Beep-beep %1$s is heated!", foodName));
+                MyLogger.printInfoMessage(String.format("Microwave: Beep-beep %1$s is heated!", foodName));
         }).start();
         isEnabled = false;
     }
     @Override
-    final public void DisableDevice()
+    final public void disableDevice()
     {
-        super.DisableDevice();
-        System.out.println("Microwave: Beep!");
+        super.disableDevice();
+        MyLogger.printInfoMessage("Microwave: Beep!");
     }
 }

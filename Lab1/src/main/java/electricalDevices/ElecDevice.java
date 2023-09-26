@@ -1,4 +1,6 @@
 package electricalDevices;
+import myLogger.MyLogger;
+
 public class ElecDevice implements IElecDevice
 {
     protected float power;
@@ -6,30 +8,30 @@ public class ElecDevice implements IElecDevice
     public ElecDevice(float power, boolean isEnabled)
     {
         this.power = power;
-
+        this.isEnabled = isEnabled;
     }
     @Override
-    public void EnableDevice()
+    public void enableDevice()
     {
         isEnabled = true;
     }
     @Override
-    public void DisableDevice()
+    public void disableDevice()
     {
         isEnabled = false;
     }
     @Override
-    public void PrintInfo()
+    public void printInfo()
     {
-        System.out.println("ElecDevice with " + GetPower() + "power!");
+        MyLogger.printInfoMessage("ElecDevice with " + getPower() + "power!");
     }
     @Override
-    public float GetPower()
+    public float getPower()
     {
         return power;
     }
     @Override
-    public boolean IsEnabled()
+    public boolean isEnabled()
     {
         return isEnabled;
     }

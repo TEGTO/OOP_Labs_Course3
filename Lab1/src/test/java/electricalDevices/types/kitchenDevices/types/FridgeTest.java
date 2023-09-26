@@ -21,33 +21,33 @@ class FridgeTest
     }
     @Test
     public void testPrintInfo() {
-        fridge.PrintInfo();
+        fridge.printInfo();
         String expected = "Fridge with 150,00 power, Medium workmode and 0 food inside!";
         assertEquals(expected, outContent.toString().replace("\n", "").replace("\r", ""));
     }
     @Test
     public void testAddFood() {
-        fridge.AddFood("Apple");
+        fridge.addFood("Apple");
         assertEquals(List.of("Apple"), fridge.foodInside);
     }
 
     @Test
     public void testRemoveFood() {
-        fridge.AddFood("Apple");
-        fridge.RemoveFood("Apple");
+        fridge.addFood("Apple");
+        fridge.removeFood("Apple");
         assertTrue(fridge.foodInside.isEmpty());
     }
 
     @Test
     public void testEnableDevice() {
-        fridge.EnableDevice();
+        fridge.enableDevice();
         String expectedOutput = "Fridge: Cooling food! On Medium mode!"; // Assuming "Device is now enabled!" is from the super.EnableDevice() method
         assertEquals(expectedOutput, outContent.toString().replace("\n", "").replace("\r", ""));
     }
 
     @Test
     public void testDisableDevice() {
-        fridge.DisableDevice();
+        fridge.disableDevice();
         String expectedOutput = "Fridge: Stops cooling food!"; // Assuming "Device is now disabled!" is from the super.DisableDevice() method
         assertEquals(expectedOutput, outContent.toString().replace("\n", "").replace("\r", ""));
     }

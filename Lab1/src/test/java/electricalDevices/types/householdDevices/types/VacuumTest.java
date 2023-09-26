@@ -21,21 +21,21 @@ class VacuumTest
 
     @Test
     public void testPrintInfo() {
-        vacuum.PrintInfo();
+        vacuum.printInfo();
         String expected = "Vacuum with 1500,00 power and Medium workmode!";
         assertEquals(expected, outContent.toString().replace("\n", "").replace("\r", ""));
     }
 
     @Test
     public void testEnableDevice() {
-        vacuum.EnableDevice();
+        vacuum.enableDevice();
         String expectedOutput = "Vacuum: Suck up dust Medium!"; // Assuming "Device is now enabled!" is from the super.EnableDevice() method
         assertEquals(expectedOutput, outContent.toString().replace("\n", "").replace("\r", ""));
     }
 
     @Test
     public void testDisableDevice() {
-        vacuum.DisableDevice();
+        vacuum.disableDevice();
         String expectedOutput = "Vacuum: Stop sucking up dust!"; // Assuming "Device is now disabled!" is from the super.DisableDevice() method
         assertEquals(expectedOutput, outContent.toString().replace("\n", "").replace("\r", ""));
     }

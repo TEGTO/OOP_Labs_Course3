@@ -1,6 +1,7 @@
 package electricalDevices.types.householdDevices.types;
 import electricalDevices.types.householdDevices.HouseholdDevice;
 import electricalDevices.additionalClasses.WorkingMode;
+import myLogger.MyLogger;
 
 public class Vacuum extends HouseholdDevice
 {
@@ -9,20 +10,20 @@ public class Vacuum extends HouseholdDevice
         super(power, isEnabled, workingMode);
     }
     @Override
-    public void PrintInfo()
+    public void printInfo()
     {
-        System.out.println(String.format("Vacuum with %1$.2f power and %2$s workmode!", GetPower(), GetWorkingMode().toString()));
+        MyLogger.printInfoMessage(String.format("Vacuum with %1$.2f power and %2$s workmode!", getPower(), getWorkingMode().toString()));
     }
     @Override
-    final public void EnableDevice()
+    final public void enableDevice()
     {
-        super.EnableDevice();
-        System.out.println(String.format("Vacuum: Suck up dust %1$s!", GetWorkingMode().toString()));
+        super.enableDevice();
+        MyLogger.printInfoMessage(String.format("Vacuum: Suck up dust %1$s!", getWorkingMode().toString()));
     }
     @Override
-    final public void DisableDevice()
+    final public void disableDevice()
     {
-        super.DisableDevice();
-        System.out.println("Vacuum: Stop sucking up dust!");
+        super.disableDevice();
+        MyLogger.printInfoMessage("Vacuum: Stop sucking up dust!");
     }
 }

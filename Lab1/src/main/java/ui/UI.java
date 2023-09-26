@@ -3,6 +3,7 @@ import apartments.Apartment;
 import electricalDevices.IElecDevice;
 import electricalDevices.additionalClasses.WorkingMode;
 import electricalDevices.types.kitchenDevices.types.Microwave;
+import myLogger.MyLogger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,8 +24,8 @@ public class UI
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println("\nPrint All!\n");
-                apartment.PrintAllDevices();
+                MyLogger.printInfoMessage("\nPrint All!\n");
+                apartment.printAllDevices();
             }
         });
         Frame.add(button);//adding button in JFrame
@@ -36,8 +37,8 @@ public class UI
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println("\nEnable All!\n");
-                apartment.EnableAllDevices();
+                MyLogger.printInfoMessage("\nEnable All!\n");
+                apartment.enableAllDevices();
             }
         });
         Frame.add(button);//adding button in JFrame
@@ -49,8 +50,8 @@ public class UI
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println("\nEnable Some!\n");
-                apartment.EnableSomeDevices();
+                MyLogger.printInfoMessage("\nEnable Some!\n");
+                apartment.enableSomeDevices();
             }
         });
         Frame.add(button);//adding button in JFrame
@@ -62,8 +63,8 @@ public class UI
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println("\nDisable All!\n");
-                apartment.DisableAllDevices();
+                MyLogger.printInfoMessage("\nDisable All!\n");
+                apartment.disableAllDevices();
             }
         });
         Frame.add(button);//adding button in JFrame
@@ -75,8 +76,8 @@ public class UI
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println("\nPower of All!\n");
-                System.out.print(String.format("\nPower of all: %1$d", apartment.GetPowerOfAll()));
+                MyLogger.printInfoMessage("\nPower of All!\n");
+                MyLogger.printInfoMessage(String.format("\nPower of all: %1$d", apartment.getPowerOfAll()));
             }
         });
         Frame.add(button);//adding button in JFrame
@@ -88,7 +89,7 @@ public class UI
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                apartment.SortByPower();
+                apartment.sortByPower();
             }
         });
         Frame.add(button);//adding button in JFrame
@@ -101,16 +102,16 @@ public class UI
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println("\nFind by Params!\n");
+                MyLogger.printInfoMessage("\nFind by Params!\n");
                 electricalDevices.additionalClasses.Timer timer = new electricalDevices.additionalClasses.Timer(10);
-                IElecDevice device = apartment.FindByObject(new Microwave(200, true, WorkingMode.Medium, timer, "Pizza"));
+                IElecDevice device = apartment.findByObject(new Microwave(200, true, WorkingMode.Medium, timer, "Pizza"));
                 if (device != null)
                 {
-                    System.out.println("Device is found!");
-                    device.PrintInfo();
+                    MyLogger.printInfoMessage("Device is found!");
+                    device.printInfo();
                 }
                 else
-                    System.out.println("Device is not found!");
+                    MyLogger.printInfoMessage("Device is not found!");
             }
         });
         Frame.add(button);//adding button in JFrame
@@ -122,7 +123,7 @@ public class UI
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                apartment.InitializeDevicesData();
+                apartment.initializeDevicesData();
             }
         });
         Frame.add(button);//adding button in JFrame
@@ -135,7 +136,7 @@ public class UI
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                apartment.SaveDevicesData();
+                apartment.saveDevicesData();
             }
         });
         Frame.add(button);//adding button in JFrame

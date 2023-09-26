@@ -29,22 +29,22 @@ class WashingMachineTest
 
     @Test
     public void testPrintInfo() {
-        washingMachine.PrintInfo();
+        washingMachine.printInfo();
         String expected = "WashingMachine with 2000,00 power, Medium workmode and WashAndSpin washing mode!";
         assertEquals(expected, getOutput());
     }
 
     @Test
     public void testSetWashingMode() {
-        washingMachine.SetWashingMode(WashingMachine.WashingMode.Spin);
-        washingMachine.PrintInfo();
+        washingMachine.setWashingMode(WashingMachine.WashingMode.Spin);
+        washingMachine.printInfo();
         String expected = "WashingMachine with 2000,00 power, Medium workmode and Spin washing mode!";
         assertEquals(expected, getOutput());
     }
 
     @Test
     public void testEnableDevice() throws InterruptedException {
-        washingMachine.EnableDevice();
+        washingMachine.enableDevice();
         Thread.sleep(8000);  // Let it run for a bit more than the timer's time
         String expectedEndMessage = "WashingMachine: Washing is over!";
         assertTrue(getOutput().endsWith(expectedEndMessage));

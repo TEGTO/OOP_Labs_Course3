@@ -15,16 +15,16 @@ class ApartmentTest
     public void testDefaultInitialization()
     {
         Apartment apartment = new Apartment(1000);
-        assertEquals(6, apartment.GetAllDevicesInApartment().size()); // Assuming there are 6 default devices
+        assertEquals(6, apartment.getAllDevicesInApartment().size()); // Assuming there are 6 default devices
     }
 
     @Test
     public void testAddDevice()
     {
         Apartment apartment = new Apartment(1);
-        int initialSize = apartment.GetAllDevicesInApartment().size();
-        apartment.AddDevice(new Vacuum(45, false, WorkingMode.Easy));
-        assertEquals(initialSize + 1, apartment.GetAllDevicesInApartment().size());
+        int initialSize = apartment.getAllDevicesInApartment().size();
+        apartment.addDevice(new Vacuum(45, false, WorkingMode.Easy));
+        assertEquals(initialSize + 1, apartment.getAllDevicesInApartment().size());
     }
 
     @Test
@@ -32,12 +32,12 @@ class ApartmentTest
     {
         Apartment apartment = new Apartment(1);
         Vacuum vacuum = new Vacuum(45, false, WorkingMode.Easy);
-        apartment.AddDevice(vacuum);
-        apartment.EnableDeviceInApartment(vacuum);
-        assertTrue(vacuum.IsEnabled());
+        apartment.addDevice(vacuum);
+        apartment.enableDeviceInApartment(vacuum);
+        assertTrue(vacuum.isEnabled());
 
-        apartment.DisableDeviceInApartment(vacuum);
-        assertFalse(vacuum.IsEnabled());
+        apartment.disableDeviceInApartment(vacuum);
+        assertFalse(vacuum.isEnabled());
     }
 
     @Test
@@ -45,9 +45,9 @@ class ApartmentTest
     {
         Apartment apartment = new Apartment(1);
         Drill drill = new Drill(200, false, 150);
-        apartment.AddDevice(drill);
+        apartment.addDevice(drill);
         Drill drillToSearch = new Drill(200, false, 150);
-        IElecDevice foundDevice = apartment.FindByObject(drillToSearch);
+        IElecDevice foundDevice = apartment.findByObject(drillToSearch);
         assertNotNull(foundDevice);
         assertTrue(Apartment.areObjectsEqual(drill, foundDevice));
     }
@@ -55,11 +55,11 @@ class ApartmentTest
     public void testGetPowerOfAll()
     {
         Apartment apartment = new Apartment(1,new ArrayList<IElecDevice>());
-        apartment.AddDevice(new Vacuum(50, false, WorkingMode.Easy));
-        apartment.AddDevice(new Drill(200, false, 150));
+        apartment.addDevice(new Vacuum(50, false, WorkingMode.Easy));
+        apartment.addDevice(new Drill(200, false, 150));
 
         float expectedPower = 50 + 200;
-        assertEquals(expectedPower, apartment.GetPowerOfAll());
+        assertEquals(expectedPower, apartment.getPowerOfAll());
     }
 
     @Test
@@ -69,14 +69,14 @@ class ApartmentTest
         Drill lessPowerfulDrill = new Drill(100, false, 100);
         Drill morePowerfulDrill = new Drill(200, false, 150);
 
-        apartment.AddDevice(morePowerfulDrill);
-        apartment.AddDevice(lessPowerfulDrill);
+        apartment.addDevice(morePowerfulDrill);
+        apartment.addDevice(lessPowerfulDrill);
 
-        apartment.SortByPower();
+        apartment.sortByPower();
 
         // Check if the devices are sorted correctly
-        assertEquals(morePowerfulDrill, apartment.GetAllDevicesInApartment().get(0));
-        assertEquals(lessPowerfulDrill, apartment.GetAllDevicesInApartment().get(1));
+        assertEquals(morePowerfulDrill, apartment.getAllDevicesInApartment().get(0));
+        assertEquals(lessPowerfulDrill, apartment.getAllDevicesInApartment().get(1));
     }
 
     @Test
@@ -86,11 +86,11 @@ class ApartmentTest
         list.add(new Drill(200, false, 150));
         Apartment apartment = new Apartment(1,list);
         Drill testDrill = new Drill(300, false, 300);
-        apartment.AddDevice(testDrill);
-        apartment.SaveDevicesData();
-        apartment.GetAllDevicesInApartment().clear();
-        apartment.InitializeDevicesData();
-        apartment.SortByPower();
-        assertTrue(Apartment.areObjectsEqual(testDrill, apartment.GetAllDevicesInApartment().get(0)));
+        apartment.addDevice(testDrill);
+        apartment.saveDevicesData();
+        apartment.getAllDevicesInApartment().clear();
+        apartment.initializeDevicesData();
+        apartment.sortByPower();
+        assertTrue(Apartment.areObjectsEqual(testDrill, apartment.getAllDevicesInApartment().get(0)));
     }
 }

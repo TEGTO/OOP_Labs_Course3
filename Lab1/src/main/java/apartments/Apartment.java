@@ -2,19 +2,18 @@ package apartments;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import electricalDevices.ElecDevice;
-import electricalDevices.additionalClasses.*;
 import electricalDevices.IElecDevice;
+import electricalDevices.additionalClasses.IElecDeviceTypeAdapter;
 import electricalDevices.additionalClasses.Timer;
+import electricalDevices.additionalClasses.WorkingMode;
 import electricalDevices.types.buildingDevices.types.Drill;
 import electricalDevices.types.buildingDevices.types.Screwdriver;
 import electricalDevices.types.householdDevices.types.Vacuum;
 import electricalDevices.types.householdDevices.types.WashingMachine;
 import electricalDevices.types.kitchenDevices.types.Fridge;
 import electricalDevices.types.kitchenDevices.types.Microwave;
+import myLogger.MyLogger;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -36,7 +35,7 @@ public class Apartment
     {
         amountOfInstances++;
         this.id = id;
-        InitializeDevicesData();
+        initializeDevicesData();
     }
     public Apartment(int id, List<IElecDevice> devicesInApartment)
     {
@@ -44,29 +43,29 @@ public class Apartment
         this.id = id;
         this.devicesInApartment = devicesInApartment;
     }
-    public void EnableAllDevices()
+    public void enableAllDevices()
     {
         for (IElecDevice device : devicesInApartment)
         {
-            EnableDeviceInApartment(device);
+            enableDeviceInApartment(device);
         }
     }
-    public void DisableAllDevices()
+    public void disableAllDevices()
     {
         for (IElecDevice device : devicesInApartment)
         {
-            DisableDeviceInApartment(device);
+            disableDeviceInApartment(device);
         }
     }
-    public void EnableSomeDevices()
+    public void enableSomeDevices()
     {
         for (IElecDevice device : devicesInApartment)
         {
             if ((new Random().nextInt(100) > 50))
-                EnableDeviceInApartment(device);
+                enableDeviceInApartment(device);
         }
     }
-    public IElecDevice FindByObject(IElecDevice iElecDeviceWhichCompare)
+    public IElecDevice findByObject(IElecDevice iElecDeviceWhichCompare)
     {
         for (IElecDevice device : devicesInApartment)
         {
@@ -101,7 +100,15 @@ public class Apartment
                         return false;
                     }
                 }
-                else if (!fieldObj1.getClass().isPrimitive() && !(fieldObj1 instanceof Float) && !(fieldObj1 instanceof Double) && !(fieldObj1 instanceof Integer) && !(fieldObj1 instanceof Long) && !(fieldObj1 instanceof Character) && !(fieldObj1 instanceof Boolean) && !(fieldObj1 instanceof Byte) && !(fieldObj1 instanceof Short) && !(fieldObj1 instanceof String))
+                else if (!fieldObj1.getClass().isPrimitive() && !(fieldObj1 instanceof Float)
+                        && !(fieldObj1 instanceof Double)
+                        && !(fieldObj1 instanceof Integer)
+                        && !(fieldObj1 instanceof Long)
+                        && !(fieldObj1 instanceof Character)
+                        && !(fieldObj1 instanceof Boolean)
+                        && !(fieldObj1 instanceof Byte)
+                        && !(fieldObj1 instanceof Short)
+                        && !(fieldObj1 instanceof String))
                 {
                     // Recursively check nested object fields
                     if (!areObjectsEqual(fieldObj1, fieldObj2))
@@ -123,50 +130,50 @@ public class Apartment
 
         return true;
     }
-    public void EnableDeviceInApartment(IElecDevice device)
+    public void enableDeviceInApartment(IElecDevice device)
     {
         if (devicesInApartment.contains(device))
-            device.EnableDevice();
+            device.enableDevice();
         else
-            System.out.println("There is no such device in apartment!");
+            MyLogger.printInfoMessage("There is no such device in apartment!");
     }
-    public void DisableDeviceInApartment(IElecDevice device)
+    public void disableDeviceInApartment(IElecDevice device)
     {
         if (devicesInApartment.contains(device))
-            device.DisableDevice();
+            device.disableDevice();
         else
-            System.out.println("There is no such device in apartment!");
+            MyLogger.printInfoMessage("There is no such device in apartment!");
     }
-    public int GetPowerOfAll()
+    public int getPowerOfAll()
     {
         int powerOfAll = 0;
 
         for (IElecDevice device : devicesInApartment)
         {
-            powerOfAll += device.GetPower();
+            powerOfAll += device.getPower();
         }
         return powerOfAll;
     }
-    public void SortByPower()
+    public void sortByPower()
     {
-        devicesInApartment.sort(Comparator.comparing(IElecDevice::GetPower).reversed());
+        devicesInApartment.sort(Comparator.comparing(IElecDevice::getPower).reversed());
     }
-    public void PrintAllDevices()
+    public void printAllDevices()
     {
         for (IElecDevice device : devicesInApartment)
         {
-            device.PrintInfo();
+            device.printInfo();
         }
     }
-    public void AddDevice(IElecDevice device)
+    public void addDevice(IElecDevice device)
     {
         devicesInApartment.add(device);
     }
-    public List<IElecDevice> GetAllDevicesInApartment()
+    public List<IElecDevice> getAllDevicesInApartment()
     {
         return devicesInApartment;
     }
-    public void InitializeDevicesData()
+    public void initializeDevicesData()
     {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeHierarchyAdapter(IElecDevice.class, new IElecDeviceTypeAdapter());
@@ -183,9 +190,9 @@ public class Apartment
             if (devicesInApartment == null || devicesInApartment.isEmpty())
             {
                 Fridge f = new Fridge(10, true, WorkingMode.Medium);
-                f.AddFood("Pizza");
-                f.AddFood("Salad");
-                f.AddFood("Tomato");
+                f.addFood("Pizza");
+                f.addFood("Salad");
+                f.addFood("Tomato");
                 devicesInApartment.add(f);
                 devicesInApartment.add(new Microwave(200, true, WorkingMode.Medium, new Timer(10), "Pizza"));
                 devicesInApartment.add(new Vacuum(55, true, WorkingMode.Medium));
@@ -195,7 +202,7 @@ public class Apartment
             }
         }
     }
-    public void SaveDevicesData()
+    public void saveDevicesData()
     {
         if (devicesInApartment != null)
         {

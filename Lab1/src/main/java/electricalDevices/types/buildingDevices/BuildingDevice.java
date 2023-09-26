@@ -1,5 +1,6 @@
 package electricalDevices.types.buildingDevices;
 import electricalDevices.ElecDevice;
+import myLogger.MyLogger;
 
 public class BuildingDevice extends ElecDevice
 {
@@ -8,8 +9,8 @@ public class BuildingDevice extends ElecDevice
         super(power, isEnabled);
     }
     @Override
-    public void PrintInfo()
+    public void printInfo()
     {
-        System.out.println(String.format("Override with %1$f power!", GetPower()));
+        MyLogger.printInfoMessage(String.format("Override with %1$f power!", getPower()));
     }
 }
