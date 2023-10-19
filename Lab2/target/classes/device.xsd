@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:complexType name="deviceType">
+        <xs:sequence>
+            <xs:element name="peripheral" type="xs:boolean"/>
+            <xs:element name="energyConsumption">
+                <xs:simpleType>
+                    <xs:restriction base="xs:short">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="hasCooler" type="xs:boolean"/>
+            <xs:element name="port" type="xs:string" minOccurs="0"/>
+            <xs:element name="group" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="device">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="name" type="xs:string" minOccurs="0"/>
+            <xs:element name="origin" type="xs:string" minOccurs="0"/>
+            <xs:element name="price" type="xs:float" minOccurs="0"/>
+            <xs:element name="critical" type="xs:boolean"/>
+            <xs:element name="type" type="deviceType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <!-- Root element for Device -->
+    <xs:element name="Devices">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Device" type="device" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

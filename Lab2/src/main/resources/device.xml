@@ -1,0 +1,58 @@
+<Devices>
+    <Device>
+        <id>47</id>
+        <name>EliteDragon</name>
+        <origin>USA</origin>
+        <price>1000</price>
+        <critical>false</critical>
+        <type>
+            <peripheral>false</peripheral>
+            <energyConsumption>6</energyConsumption>
+            <hasCooler>true</hasCooler>
+            <port>PCIe 4.0</port>
+            <group>Graphics</group>
+        </type>
+    </Device>
+    <Device>
+        <id>29</id>
+        <name>QuantumForce</name>
+        <origin>Japan</origin>
+        <price>10000</price>
+        <critical>true</critical>
+        <type>
+            <peripheral>false</peripheral>
+            <energyConsumption>12</energyConsumption>
+            <hasCooler>true</hasCooler>
+            <port>Socket AM5</port>
+            <group>Processor</group>
+        </type>
+    </Device>
+    <Device>
+        <id>83</id>
+        <name>NeptuneDrive</name>
+        <origin>South Korea</origin>
+        <price>4343</price>
+        <critical>false</critical>
+        <type>
+            <peripheral>false</peripheral>
+            <energyConsumption>41</energyConsumption>
+            <hasCooler>false</hasCooler>
+            <port>SATA 3.0</port>
+            <group>Storage</group>
+        </type>
+    </Device>
+    <Device>
+        <id>55</id>
+        <name>RapidFlow</name>
+        <origin>Taiwan</origin>
+        <price>112121</price>
+        <critical>false</critical>
+        <type>
+            <peripheral>false</peripheral>
+            <energyConsumption>25</energyConsumption>
+            <hasCooler>false</hasCooler>
+            <port>DDR5</port>
+            <group>Memory</group>
+        </type>
+    </Device>
+</Devices>
