@@ -27,7 +27,7 @@ public class DeviceHandler extends MyHandler<Device>
     @Override
     public void startDocument() throws SAXException
     {
-        List<Device> deviceList = new ArrayList<>();
+       deviceList = new ArrayList<>();
     }
     @Override
     public void startElement(String uri, String lName, String qName, Attributes attr) throws SAXException
@@ -44,8 +44,6 @@ public class DeviceHandler extends MyHandler<Device>
                 break;
         }
     }
-
-    @Override
     public void endElement(String uri, String localName, String qName) throws SAXException
     {
         switch (qName)
