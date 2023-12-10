@@ -13,7 +13,7 @@
             android:theme="@style/Theme.Lines"
             tools:targetApi="31">
         <activity
-                android:name=".Game"
+                android:name=".StartGame"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

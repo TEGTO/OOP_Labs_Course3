@@ -8,11 +8,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import static com.lines.GameSettingsConstants.*;
+
 public class GameLogic implements IGameLogic
 {
-    private static final int POINTS_FOR_CIRCLE = 5;
-    private static final int CIRCLE_IN_ROW_AT_LEAST = 5;
-    private static final int AMOUNT_OF_NEW_CIRCLES_PER_MOVE = 3;
     private List<Cell> cellList;
     private Cell[][] cellMatrix;
     private Grid grid;

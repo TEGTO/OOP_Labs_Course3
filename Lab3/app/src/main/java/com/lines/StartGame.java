@@ -1,7 +1,6 @@
 package com.lines;
 
 import android.graphics.Color;
-import android.os.Messenger;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -16,10 +15,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Game extends AppCompatActivity
+import static com.lines.GameSettingsConstants.GAME_FIELD_COLUMNS;
+import static com.lines.GameSettingsConstants.GAME_FIELD_ROWS;
+
+public class StartGame extends AppCompatActivity
 {
-    public static final int MATRIX_ROW = 9;
-    public static final int MATRIX_COL = 9;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -35,8 +35,8 @@ public class Game extends AppCompatActivity
         messenger.updateScoreLabel(0);
 
         // Define the number of rows and columns in the grid
-        int numRows = MATRIX_ROW;
-        int numColumns = MATRIX_COL;
+        int numRows = GAME_FIELD_ROWS;
+        int numColumns = GAME_FIELD_COLUMNS;
         // Create a list of cells for the 9x9 grid
         List<Cell> cellList = new ArrayList<>();
         for (int i = 0; i < numRows * numColumns; i++)
