@@ -18,6 +18,8 @@ public class GameLogic implements IGameLogic
     private List<Integer> colors;
     private GameMessenger messanger;
     private int currentScore = 0;
+    private boolean isGameFinised = false;
+
     public GameLogic(List<Cell> cellList, Cell[][] cellMatrix, Grid grid, List<Integer> colors, GameMessenger messanger)
     {
         this.cellList = cellList;
@@ -25,18 +27,17 @@ public class GameLogic implements IGameLogic
         this.colors = colors;
         this.messanger = messanger;
         this.grid = grid;
-        grid.setOnCellMove(cell ->
+        grid.setOnCellMoveEvent(cell ->
         {
-            messanger.printInfoMessage("");
+            printMessageIfGameIsNotFinised("");
             onCellChangePosition(cell);
         });
-        grid.setOnHasNoPath(cell ->
+        grid.setOnHasNoPathEvent(cell ->
         {
-            messanger.printInfoMessage("Can't find the path!");
+            printMessageIfGameIsNotFinised("Can't find the path!");
         });
         onGameStart();
     }
-
     @Override
     public void onCellChangePosition(Cell cell)
     {
@@ -52,16 +53,20 @@ public class GameLogic implements IGameLogic
     @Override
     public void restartGame()
     {
+        isGameFinised = false;
         for (Cell cell : cellList)
         {
             cell.setOccupied(false);
             cell.setCircleColor(0);
         }
-        messanger.setGameFinished(false);
-        messanger.printInfoMessage("");
-        messanger.updateScoreLabel(0);
+        printMessageIfGameIsNotFinised("");
+        updateScoreIfGameIsNotFinised(0);
         grid.restartAdapter();
         onGameStart();
+    }
+    public boolean isGameFinised()
+    {
+        return isGameFinised;
     }
     private void nextGameMove()
     {
@@ -89,7 +94,7 @@ public class GameLogic implements IGameLogic
             }
         }
     }
-    public void removeLinesAndAwardPoints(Cell[][] grid)
+    private void removeLinesAndAwardPoints(Cell[][] grid)
     {
         // Check rows and remove lines
         currentScore += removeLines(grid);
@@ -103,11 +108,9 @@ public class GameLogic implements IGameLogic
     private int removeLines(Cell[][] lines)
     {
         int totalPoints = 0;
-
         for (int i = 0; i < lines.length; i++)
         {
             int consecutiveCount = 1;
-
             for (int j = 1; j <= lines[i].length; j++)
             {
                 if (j < lines[i].length && lines[i][j].isOccupied() && lines[i][j].getCircleColor() == lines[i][j - 1].getCircleColor())
@@ -120,7 +123,7 @@ public class GameLogic implements IGameLogic
                         for (int k = j - 1; k > j - 1 - consecutiveCount; k--)
                         {
                             lines[i][k].setOccupied(false);
-                            totalPoints += POINTS_FOR_CIRCLE; // Award 5 points for each removed cell
+                            totalPoints += POINTS_FOR_CIRCLE; // Award n points for each removed cell
                         }
                     }
                     consecutiveCount = 1;
@@ -144,7 +147,17 @@ public class GameLogic implements IGameLogic
     }
     private void finishGame()
     {
-        messanger.printInfoMessage("Game is finished! Your final score: " + currentScore);
-        messanger.setGameFinished(true);
+        printMessageIfGameIsNotFinised("Game is finished! Your final score: " + currentScore);
+        isGameFinised = true;
+    }
+    private void printMessageIfGameIsNotFinised(String message)
+    {
+        if (!isGameFinised)
+            messanger.printInfoMessage(message);
+    }
+    private void updateScoreIfGameIsNotFinised(int score)
+    {
+        if (!isGameFinised)
+            messanger.updateScoreLabel(score);
     }
 }

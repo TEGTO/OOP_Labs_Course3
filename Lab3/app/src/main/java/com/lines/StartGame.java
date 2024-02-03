@@ -12,7 +12,6 @@ import com.lines.grid.Grid;
 import com.lines.ui.GameMessenger;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.lines.GameSettingsConstants.GAME_FIELD_COLUMNS;
@@ -25,7 +24,7 @@ public class StartGame extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        List<Integer> colors = Arrays.asList(Color.RED, Color.BLUE, Color.GREEN, Color.parseColor("#960ac9"), Color.parseColor("#e08210"));
+        List<Integer> colors = CircleColor.CircleColors();
         // Get the grid view
         GridView gridView = findViewById(R.id.gridLayout);
         TextView scoreView = findViewById(R.id.scoreLabel);
@@ -33,24 +32,11 @@ public class StartGame extends AppCompatActivity
         ImageButton restartButton = findViewById(R.id.restartButton);
         GameMessenger messenger = new GameMessenger(this, scoreView, infoView);
         messenger.updateScoreLabel(0);
-
-        // Define the number of rows and columns in the grid
         int numRows = GAME_FIELD_ROWS;
         int numColumns = GAME_FIELD_COLUMNS;
-        // Create a list of cells for the 9x9 grid
         List<Cell> cellList = new ArrayList<>();
-        for (int i = 0; i < numRows * numColumns; i++)
-        {
-            int color = i % 2 == 0 ? Color.parseColor("#858585") : Color.parseColor("#c6c6c6");
-            int circleColor = 0; // Set circle colors as needed
-            cellList.add(new Cell(color, false, circleColor));
-        }
-        Cell[][] cellsMatrix = new Cell[numRows][numColumns];
-        for (int i = 0; i < numRows; i++)
-        {
-            for (int j = 0; j < numColumns; j++)
-                cellsMatrix[i][j] = cellList.get(i + j);
-        }
+        setCellsInChequerwiseBackground(cellList, numRows, numColumns);
+        Cell[][] cellsMatrix = transferListToMatrix(cellList, numRows, numColumns);
         // Create the custom adapter and set it to the grid view
         Grid gridAdapter = new Grid(this, android.R.layout.simple_list_item_1, cellList, cellsMatrix);
         GameLogic gameLogic = new GameLogic(cellList, cellsMatrix, gridAdapter, colors, messenger);
@@ -63,5 +49,24 @@ public class StartGame extends AppCompatActivity
             }
         });
         gridView.setAdapter(gridAdapter);
+    }
+    private void setCellsInChequerwiseBackground(List<Cell> cellList, int numRows, int numColumns)
+    {
+        for (int i = 0; i < numRows * numColumns; i++)
+        {
+            int backgroundColor = i % 2 == 0 ? Color.parseColor("#858585") : Color.parseColor("#c6c6c6");
+            int circleColor = 0;
+            cellList.add(new Cell(backgroundColor, false, circleColor));
+        }
+    }
+    private Cell[][] transferListToMatrix(List<Cell> cellList, int numRows, int numColumns)
+    {
+        Cell[][] cellsMatrix = new Cell[numRows][numColumns];
+        for (int i = 0; i < numRows; i++)
+        {
+            for (int j = 0; j < numColumns; j++)
+                cellsMatrix[i][j] = cellList.get(i + j);
+        }
+        return cellsMatrix;
     }
 }
